@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7edf2">
+<title>A tiny question for tonight ✨</title>
+<style>
+:root{--ink:#453746;--muted:#8b7888;--pink:#f4c9d9;--rose:#e99ab8;--cream:#fffaf7;--lilac:#e7dcf4}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;place-items:center;padding:22px;color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;background:radial-gradient(circle at 15% 15%,#fff 0 8%,transparent 32%),radial-gradient(circle at 85% 80%,#e8def6 0 2%,transparent 30%),linear-gradient(135deg,#fff5f6,#f5edf8 55%,#fff8ef);overflow-x:hidden}
+.sparkle{position:fixed;color:#c59bb7;opacity:.65;pointer-events:none;animation:float 6s ease-in-out infinite}.s1{top:9%;left:9%;font-size:22px}.s2{top:18%;right:12%;font-size:16px;animation-delay:1s}.s3{bottom:13%;left:15%;font-size:18px;animation-delay:2s}.s4{bottom:10%;right:10%;font-size:24px;animation-delay:3s}
+@keyframes float{50%{transform:translateY(-13px) rotate(18deg)}}
+.greeting-screen{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:linear-gradient(135deg,#fff5f6,#f5edf8 55%,#fff8ef);animation:greetingOut .7s ease 2.1s forwards}
+.greeting-card{text-align:center;animation:greetingIn .8s cubic-bezier(.2,.8,.2,1)}
+.greeting-card h1{margin:14px 0 0;font-family:Georgia,serif;font-weight:500;font-size:clamp(30px,8vw,44px)}
+.greeting-emoji{font-size:48px;animation:greetingBounce .9s ease-in-out infinite alternate}
+@keyframes greetingIn{from{opacity:0;transform:translateY(15px) scale(.96)}to{opacity:1;transform:none}}
+@keyframes greetingBounce{to{transform:translateY(-5px)}}
+@keyframes greetingOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+.card{width:min(100%,510px);padding:clamp(26px,6vw,44px);text-align:center;background:rgba(255,255,255,.82);border:1px solid white;border-radius:30px;box-shadow:0 24px 70px #9d789526,inset 0 1px 0 white;backdrop-filter:blur(14px);animation:appear .7s cubic-bezier(.2,.8,.2,1)}
+@keyframes appear{from{opacity:0;transform:translateY(20px) rotateX(5deg)}to{opacity:1;transform:none}}
+.pill{display:inline-block;padding:8px 14px;border-radius:99px;background:#f8eaf0;color:#a36e89;font-size:12px;letter-spacing:.08em;text-transform:uppercase;font-weight:800}
+h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(32px,8vw,45px);line-height:1.12;margin:22px 0 12px}
+.sub{color:var(--muted);font-size:15px;line-height:1.7;margin:0 auto 28px;max-width:350px}
+.buttons{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin:26px 0 8px}
+button{border:0;cursor:pointer;font:700 15px inherit;font-family:inherit;padding:14px 27px;border-radius:16px;transition:transform .18s,box-shadow .18s;box-shadow:0 7px 0 #55344b1f,0 12px 24px #9d78951c}
+button:focus-visible,input:focus-visible{outline:3px solid #bd8ba8;outline-offset:4px}
+button:active{transform:translateY(4px);box-shadow:0 3px 0 #55344b1f}
+.yes{color:white;background:linear-gradient(145deg,#e9a8c1,#c58bb3);text-shadow:0 1px 1px #9a6682}.no{color:#725c70;background:linear-gradient(145deg,#f4eff8,#e5d9ef)}
+button:hover{transform:translateY(-3px) rotate(-1deg)}
+.note{font-size:12px;color:#a18d9d;margin-top:23px}.hidden{display:none}
+.panel{margin-top:22px;padding:20px;border-radius:20px;background:#fff8fb;border:1px solid #f2e1e9;text-align:left}
+label{display:block;font-size:13px;font-weight:800;color:#80677b;margin-bottom:9px}
+.time-picker-wrap{display:flex;gap:10px;align-items:center}
+input[type=time]{flex:1;min-width:0;padding:14px;border:1px solid #ead6e2;border-radius:13px;background:white;color:var(--ink);font:600 17px inherit;font-family:inherit;transition:border-color .2s,box-shadow .2s,transform .2s}
+input[type=time]:focus{border-color:#c58bb3;box-shadow:0 0 0 4px #c58bb326;transform:translateY(-1px)}
+.confirm-time{padding:14px 18px;border-radius:13px;color:white;background:linear-gradient(145deg,#e9a8c1,#c58bb3);white-space:nowrap;box-shadow:0 5px 0 #55344b1f,0 8px 18px #9d78951c}
+.confirm-time:disabled{opacity:.45;cursor:not-allowed;transform:none}
+@media(max-width:420px){.time-picker-wrap{flex-direction:column;align-items:stretch}.confirm-time{width:100%}}
+.footer{margin-top:24px;color:#ad9cab;font-size:11px;line-height:1.6}
+.face{font-size:66px;margin:14px 0;display:block}.tears{display:inline-block;animation:cry .8s ease-in-out infinite alternate}
+@keyframes cry{to{transform:translateY(8px) rotate(9deg)}}
+.thanks-emoji{display:flex;justify-content:center;align-items:center;gap:10px;margin:18px 0 8px;perspective:600px}
+.thanks-emoji span{display:inline-block;font-size:clamp(42px,10vw,62px);filter:drop-shadow(0 9px 5px #80608035);animation:emojiPop .85s cubic-bezier(.2,1.5,.4,1) both;transform-style:preserve-3d}
+.thanks-emoji span:nth-child(2){animation-delay:.12s}.thanks-emoji span:nth-child(3){animation-delay:.24s}
+@keyframes emojiPop{0%{opacity:0;transform:translateY(28px) rotateX(-55deg) scale(.35)}65%{transform:translateY(-8px) rotateY(18deg) scale(1.18)}100%{opacity:1;transform:translateY(0) rotateY(0) scale(1)}}
+#thanksSection h1{margin-top:12px}
+.time-again{margin-top:12px;background:linear-gradient(145deg,#f4eff8,#e5d9ef);color:#725c70}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<span class="sparkle s1">✦</span><span class="sparkle s2">✧</span><span class="sparkle s3">⋆</span><span class="sparkle s4">✦</span>
+<div id="greetingScreen" class="greeting-screen" aria-label="Greeting">
+  <div class="greeting-card">
+    <div class="greeting-emoji">🌸</div>
+    <h1>Assalam-o-Alaikum, E A</h1>
+  </div>
+</div>
+<main class="card">
+  <span class="pill">a tiny invitation · just for you</span>
+  <section id="question">
+    <h1>Can I borrow<br>some of your time tonight?</h1>
+    <p class="sub">Nothing formal, no pressure. Just a little conversation, a few laughs, and a chance to catch up. ☁️</p>
+    <div class="buttons">
+      <button class="yes" id="yesBtn">Yes, why not ✨</button>
+      <button class="no" id="noBtn">Not tonight 🙈</button>
+    </div>
+    <p class="note">Your comfort comes first. Either answer is totally okay.</p>
+  </section>
+  <section id="timeSection" class="hidden">
+    <h1>Yay, lovely! ✨</h1>
+    <p class="sub">When would be a comfortable time for you? Pick whatever works best.</p>
+    <div class="panel"><label for="time">YOUR PREFERRED TIME TONIGHT</label>
+      <div class="time-picker-wrap">
+        <input id="time" type="time" required aria-label="Your preferred time tonight">
+        <button type="button" class="confirm-time" id="confirmTimeBtn">OK ✓</button>
+      </div>
+
+    </div>
+    <p class="note">Just select a time and you'll get a little surprise ✨</p>
+  </section>
+  <section id="thanksSection" class="hidden" aria-live="polite">
+    <div class="thanks-emoji" aria-label="celebration emojis"><span>🥳</span><span>✨</span></div>
+    <h1>Thank you! ✨</h1>
+    <p class="sub">Yay! Your time is noted. Looking forward to a lovely little chat tonight. 🌷</p>
+    <p class="note" id="chosenTime"></p>
+  </section>
+  <section id="noSection" class="hidden">
+    <span class="face" aria-label="crying face">🥺<span class="tears">💧</span></span>
+    <h1>Ouch… my imaginary tears! 😭</h1>
+    <p class="sub">*wipes eyes dramatically* Okay okay, no worries! Your choice is respected. Returning to the question in a moment…</p>
+    <p class="note">You don't owe me a yes. Have a lovely evening 🌷</p>
+  </section>
+  <div class="footer">made with a little sparkle · absolutely no pressure<br></div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/*
+  Configured for this Supabase project. Only the publishable key is used here.
+  Never put a service_role or secret key in this public HTML file.
+*/
+const SUPABASE_URL = "https://qxhfafifugbxglruinec.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_T5eFBJkt6u4cXhDFCgi_QQ_Rpm_Z8Cr";
+
+const configured = SUPABASE_URL.startsWith("https://") &&
+  !SUPABASE_URL.includes("PASTE_") && !SUPABASE_ANON_KEY.includes("PASTE_");
+const db = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+const $ = id => document.getElementById(id);
+const sessionId = (crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`);
+let currentScreen = "question";
+let lastTimeValue = "";
+let eventQueue = Promise.resolve();
+
+function track(eventName, details = {}) {
+  const payload = {
+    session_id: sessionId,
+    event_name: eventName,
+    screen: currentScreen,
+    details,
+    occurred_at: new Date().toISOString(),
+    user_agent: navigator.userAgent
+  };
+  // Keep a local fallback copy in case the visitor is offline or DB setup is incomplete.
+  try {
+    const key = "tonightInvitePendingEvents";
+    const pending = JSON.parse(localStorage.getItem(key) || "[]");
+    pending.push(payload);
+    localStorage.setItem(key, JSON.stringify(pending.slice(-100)));
+  } catch (_) {}
+  if (!db) {
+    console.warn("Supabase is not configured; event saved only in this browser.", payload);
+    return Promise.resolve(false);
+  }
+  eventQueue = eventQueue.then(async () => {
+    const { error } = await db.from("invite_events").insert(payload);
+    if (error) console.error("Could not save event:", error.message);
+    return !error;
+  }).catch(err => { console.error(err); return false; });
+  return eventQueue;
+}
+
+function show(id) {
+  ["question","timeSection","noSection","thanksSection"].forEach(x => $(x).classList.toggle("hidden", x !== id));
+  currentScreen = id;
+}
+track("page_view", {path: location.pathname, referrer: document.referrer || null});
+
+$("yesBtn").addEventListener("click", async () => {
+  await track("answer_yes");
+  show("timeSection");
+  track("screen_time_picker_shown");
+  $("time").focus();
+});
+$("noBtn").addEventListener("click", async () => {
+  await track("answer_no");
+  show("noSection");
+  $("noSection").animate(
+    [{transform:"scale(.96) rotateY(-7deg)",opacity:.5},{transform:"scale(1) rotateY(0)",opacity:1}],
+    {duration:500,easing:"ease-out"}
+  );
+  track("no_reaction_shown");
+  setTimeout(() => {
+    show("question");
+    track("returned_to_question_after_no");
+  }, 2800);
+});
+const timeInput = $("time");
+const confirmTimeBtn = $("confirmTimeBtn");
+
+function updateTimeButton() {
+  confirmTimeBtn.disabled = !timeInput.value;
+}
+
+timeInput.addEventListener("input", updateTimeButton);
+timeInput.addEventListener("change", updateTimeButton);
+
+confirmTimeBtn.addEventListener("click", async () => {
+  const time = timeInput.value;
+  if (!time) {
+    timeInput.focus();
+    return;
+  }
+
+  if (time === lastTimeValue) {
+    show("thanksSection");
+    return;
+  }
+
+  lastTimeValue = time;
+  confirmTimeBtn.disabled = true;
+  confirmTimeBtn.textContent = "Saving…";
+
+  await track("time_selected_or_changed", {selected_time:time});
+  await track("time_confirmed", {selected_time:time});
+
+  const [hh,mm] = time.split(":").map(Number);
+  const pretty = new Date(2000,0,1,hh,mm).toLocaleTimeString([], {
+    hour:"numeric",
+    minute:"2-digit"
+  });
+
+  $("chosenTime").textContent = `Your selected time: ${pretty} 😊`;
+  show("thanksSection");
+
+  confirmTimeBtn.textContent = "OK ✓";
+  updateTimeButton();
+});
+
+updateTimeButton();
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") track("page_hidden");
+});
+</script>
+</body>
+</html>
